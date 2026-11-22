@@ -1,281 +1,58 @@
-# Aplikasi Mobile Marketplace - Modul 09 & 10
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-**Aplikasi Mobile 2 - Praktikum Modul 09 & 10**  
-Aplikasi marketplace sederhana dengan autentikasi dan bottom tab navigation.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
----
+## About Laravel
 
-## 📱 Deskripsi
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-Aplikasi ini dibuat menggunakan **Expo + TypeScript + Expo Router** sebagai bagian dari praktikum Aplikasi Mobile 2. Fitur utama meliputi:
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-- **Autentikasi:** Login dan Register dengan validasi client-side
-- **Bottom Tab Navigation:** 5 menu utama (Home, Produk, Transaksi, Report, Profil)
-- **Dashboard Marketplace:** Kartu sambutan dan menu cepat
-- **Safe Area Support:** Tab bar tidak tertutup tombol navigasi HP
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-**Catatan:** Ini adalah aplikasi UI prototype tanpa backend API.
+## Learning Laravel
 
----
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-## ✨ Fitur
+In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-### Modul 09: UI Autentikasi
-- [x] Redirect otomatis ke layar Login
-- [x] Form Login dengan validasi (email & password tidak kosong)
-- [x] Form Register dengan validasi:
-  - Semua field wajib diisi
-  - Password minimal 6 karakter
-  - Konfirmasi password harus cocok
-- [x] Navigasi antar layar (Login ↔ Register ↔ Home)
+You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
 
-### Modul 10: Bottom Tab & Dashboard
-- [x] Bottom Tab Navigator dengan 5 menu:
-  - 🏠 Home (Dashboard)
-  - 📦 Produk
-  - 💳 Transaksi
-  - 📊 Report
-  - 👤 Profil
-- [x] Dashboard Home:
-  - Kartu sambutan dengan email user
-  - 5 menu cepat (Produk navigasi ke tab, lainnya Alert)
-- [x] Safe Area Insets (tab bar dynamic height)
-- [x] Tombol Logout di tab Profil
+## Agentic Development
 
----
+Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
 
-## 🛠️ Teknologi
-
-- **Framework:** [Expo SDK 58](https://expo.dev) + [React Native 0.88](https://reactnative.dev)
-- **Routing:** [Expo Router](https://docs.expo.dev/router/introduction/) (file-based routing)
-- **Bahasa:** [TypeScript 6.0](https://www.typescriptlang.org)
-- **Safe Area:** [react-native-safe-area-context](https://github.com/th3rdwave/react-native-safe-area-context)
-
----
-
-## 📦 Instalasi
-
-### Prerequisites
-- **Node.js** 18+ ([Download](https://nodejs.org))
-- **npm** atau **yarn**
-- **Expo Go** app di smartphone (untuk testing)
-
-### Langkah Instalasi
-
-1. **Clone repository**
-   ```bash
-   git clone https://github.com/[username]/mobile2_[NOBP]_20262.git
-   cd mobile2_[NOBP]_20262
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start development server**
-   ```bash
-   npx expo start
-   ```
-
-4. **Pilih platform:**
-   - Tekan `a` untuk Android emulator
-   - Tekan `i` untuk iOS simulator
-   - Tekan `w` untuk Web browser
-   - Scan QR code dengan **Expo Go** app di smartphone
-
----
-
-## 📂 Struktur Folder
-
-```
-kuliah-app2/
-├── src/
-│   ├── app/                    # File-based routing
-│   │   ├── _layout.tsx         # Root Stack Navigator
-│   │   ├── index.tsx           # Entry point (redirect ke /login)
-│   │   ├── login.tsx           # Layar Login
-│   │   ├── register.tsx        # Layar Register
-│   │   └── (tabs)/             # Tab Group
-│   │       ├── _layout.tsx     # Bottom Tab Navigator
-│   │       ├── home.tsx        # Dashboard Marketplace
-│   │       ├── produk.tsx      # Placeholder
-│   │       ├── transaksi.tsx   # Placeholder
-│   │       ├── report.tsx      # Placeholder
-│   │       └── profil.tsx      # Profil + Logout
-│   └── styles/                 # Centralized StyleSheets
-│       ├── authStyles.ts       # Login & Register styles
-│       ├── homeStyles.ts       # Home dashboard styles
-│       └── tabStyles.ts        # Bottom Tab styles
-├── assets/                     # Images & fonts
-├── docs/                       # Modul PDF (referensi)
-├── screenshots/                # Screenshot aplikasi
-├── requirements.md             # Functional requirements
-├── design.md                   # Architecture & design
-├── package.json
-├── tsconfig.json
-└── README.md
-```
-
----
-
-## 🎮 Cara Menggunakan
-
-### 1. Login
-- Buka aplikasi → otomatis redirect ke layar **Login**
-- Input email dan password (contoh: `test@mail.com`, `123456`)
-- Klik **"Masuk"** → masuk ke Dashboard Home
-
-### 2. Register (Opsional)
-- Dari Login, klik **"Belum punya akun? Daftar Sekarang"**
-- Isi semua field (Nama, Email, Password, Konfirmasi Password)
-- Klik **"Daftar"** → kembali ke Login
-
-### 3. Navigasi Tab
-- **Home:** Dashboard dengan kartu sambutan & 5 menu cepat
-- **Produk:** Placeholder (fitur siap dikembangkan)
-- **Transaksi:** Placeholder
-- **Report:** Placeholder
-- **Profil:** Tampil email user + tombol Logout
-
-### 4. Menu Cepat di Home
-- Klik menu **"📦 Produk"** → pindah ke tab Produk
-- Klik menu lainnya → Alert "Fitur ... siap dikembangkan"
-
-### 5. Logout
-- Buka tab **Profil**
-- Klik tombol **"Logout"** → kembali ke Login
-
----
-
-## 🧪 Testing
-
-### Run TypeScript Check
 ```bash
-npx tsc --noEmit
+composer require laravel/boost --dev
+
+php artisan boost:install
 ```
 
-### Run ESLint
-```bash
-npx expo lint
-```
+Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
 
-### Manual Testing Checklist
-Lihat file: [IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md)
+## Contributing
 
----
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## 📸 Screenshots
+## Code of Conduct
 
-Lihat folder: [screenshots/](./screenshots/)
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-| Login | Home | Produk |
-|-------|------|--------|
-| ![Login](./screenshots/01-login.png) | ![Home](./screenshots/02-home.png) | ![Produk](./screenshots/03-produk.png) |
+## Security Vulnerabilities
 
-| Transaksi | Report | Profil |
-|-----------|--------|--------|
-| ![Transaksi](./screenshots/04-transaksi.png) | ![Report](./screenshots/05-report.png) | ![Profil](./screenshots/06-profil.png) |
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
----
+## License
 
-## 🔧 Konfigurasi
-
-### Path Alias
-```typescript
-// tsconfig.json
-{
-  "paths": {
-    "@/*": ["./src/*"]
-  }
-}
-```
-
-### Safe Area Insets
-```typescript
-// src/app/(tabs)/_layout.tsx
-const insets = useSafeAreaInsets();
-
-<Tabs
-  screenOptions={{
-    tabBarStyle: {
-      paddingBottom: insets.bottom,  // Dynamic padding
-      height: 60 + insets.bottom,
-    }
-  }}
-/>
-```
-
----
-
-## 🚀 Build & Deploy (Opsional)
-
-### Build APK (Android)
-```bash
-eas build --platform android --profile preview
-```
-
-### Build IPA (iOS)
-```bash
-eas build --platform ios --profile preview
-```
-
-**Note:** Membutuhkan [EAS CLI](https://docs.expo.dev/build/setup/) dan akun Expo.
-
----
-
-## 📚 Referensi
-
-- [Expo Documentation](https://docs.expo.dev)
-- [Expo Router Documentation](https://docs.expo.dev/router/introduction/)
-- [React Native Documentation](https://reactnative.dev/docs/getting-started)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- Modul Praktikum 09 & 10 (folder `docs/`)
-
----
-
-## 📝 Catatan Pengembangan
-
-### Known Limitations
-- **Backend API:** Tidak ada, semua data dummy/hardcoded
-- **State Management:** Tidak menggunakan Redux/Zustand
-- **Local Storage:** Tidak menyimpan session/token
-- **Form Validation:** Client-side only (tanpa library eksternal)
-
-### Future Enhancements
-- Integrasi dengan REST API Laravel
-- State management (Redux Toolkit)
-- Persistent login (AsyncStorage + JWT)
-- Form validation library (Formik + Yup)
-- Icon pack (Ionicons/FontAwesome)
-- Dark mode support
-
----
-
-## 👨‍💻 Author
-
-**[NAMA LENGKAP]**  
-**NIM/NPM:** [NOBP]  
-**Kelas:** [KELAS]  
-**Mata Kuliah:** Aplikasi Mobile 2  
-**Semester:** 7
-
----
-
-## 📄 License
-
-Project ini dibuat untuk keperluan akademik (praktikum).
-
----
-
-## 🙏 Acknowledgments
-
-- Dosen pengampu: [NAMA DOSEN]
-- Modul praktikum: Aplikasi Mobile 2
-- Template: Expo + TypeScript
-- Framework: Expo & React Native Community
-
----
-
-**Last Updated:** 2026-11-15  
-**Version:** 1.0.0 (Modul 09 & 10 Complete)
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
