@@ -1,156 +1,211 @@
-import { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  TextInput, 
-  TouchableOpacity, 
+import { loginApi, saveAuthSession } from "@/services/authService";
+import { authStyles } from "@/styles/authStyles";
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { useState } from "react";
+
+import {
+  ActivityIndicator,
   Alert,
-  ScrollView,
-  SafeAreaView,
   KeyboardAvoidingView,
   Platform,
-} from 'react-native';
-import { router } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
-import { authStyles } from '@/styles/authStyles';
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-/**
- * Layar Login - 100% sesuai Modul Praktikum 9
- * Validasi: Input Belum Lengkap
- */
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+import { SafeAreaView } from "react-native-safe-area-context";
+
+export default function LoginScreen() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = () => {
-    // Validasi: email & password tidak boleh kosong
+  const [focusedField, setFocusedField] = useState<"email" | "password" | null>(
+    null,
+  );
+
+  // Fungsi untuk menangani login
+  const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
       Alert.alert(
-        'Input Belum Lengkap',
-        'Silakan masukkan email dan password Anda.'
+        "Input Belum Lengkap",
+        "Silakan masukkan email dan password Anda.",
       );
       return;
     }
 
-    // Navigasi ke tabs/home
-    router.replace({
-      pathname: '/(tabs)/home' as any,
-      params: { email: email.trim() },
-    });
+    setIsLoading(true);
+    try {
+      const response = await loginApi({
+        email: email.trim(),
+        password,
+      });
+      await saveAuthSession(response.user, response.token);
+      router.replace({
+        pathname: "/home",
+        params: {
+          email: response.user.email,
+        },
+      });
+    } catch (error) {
+      Alert.alert(
+        "Login Gagal",
+        error instanceof Error
+          ? error.message
+          : "Terjadi kesalahan saat mencoba masuk.",
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <SafeAreaView style={authStyles.safeArea}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
+        style={authStyles.flexContainer}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <ScrollView
           contentContainerStyle={authStyles.scrollContent}
           keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
         >
           {/* Header */}
-          <View style={authStyles.header}>
+          <View style={authStyles.headerArea}>
             <View style={authStyles.logoBadge}>
-              <Ionicons name="lock-closed" size={32} color="#2563EB" />
+              <Ionicons name="shield-checkmark" size={30} color="#2563EB" />
             </View>
-            <Text style={authStyles.title}>Masuk ke Akun</Text>
+
+            <Text style={authStyles.title}>Selamat Datang</Text>
+
             <Text style={authStyles.subtitle}>
-              Masukkan email dan kata sandi untuk melanjutkan
+              Masuk ke akun Anda untuk mengakses portal praktikum Mobile 2
             </Text>
           </View>
 
-          {/* Form Card */}
+          {/* Form Login */}
           <View style={authStyles.card}>
-            {/* Email */}
+            {/* Input Email */}
             <View style={authStyles.formGroup}>
-              <Text style={authStyles.label}>Email</Text>
-              <View style={[
-                authStyles.inputWrapper,
-                focusedField === 'email' && authStyles.inputWrapperFocused
-              ]}>
-                <Ionicons 
-                  name="mail" 
-                  size={20} 
-                  color={focusedField === 'email' ? '#2563EB' : '#64748B'} 
-                  style={{ marginRight: 10 }}
+              <Text style={authStyles.label}>Alamat Email</Text>
+
+              <View
+                style={[
+                  authStyles.inputWrapper,
+                  focusedField === "email" && authStyles.inputWrapperFocused,
+                ]}
+              >
+                <Ionicons
+                  name="mail-outline"
+                  size={20}
+                  color={focusedField === "email" ? "#2563EB" : "#64748B"}
+                  style={authStyles.inputIcon}
                 />
+
                 <TextInput
                   style={authStyles.input}
                   placeholder="nama@kampus.ac.id"
                   placeholderTextColor="#94A3B8"
-                  value={email}
-                  onChangeText={setEmail}
                   keyboardType="email-address"
                   autoCapitalize="none"
-                  onFocus={() => setFocusedField('email')}
+                  autoCorrect={false}
+                  value={email}
+                  onChangeText={setEmail}
+                  onFocus={() => setFocusedField("email")}
                   onBlur={() => setFocusedField(null)}
                 />
               </View>
             </View>
 
-            {/* Password */}
+            {/* Input Password */}
             <View style={authStyles.formGroup}>
               <Text style={authStyles.label}>Kata Sandi</Text>
-              <View style={[
-                authStyles.inputWrapper,
-                focusedField === 'password' && authStyles.inputWrapperFocused
-              ]}>
-                <Ionicons 
-                  name="lock-closed" 
-                  size={20} 
-                  color={focusedField === 'password' ? '#2563EB' : '#64748B'} 
-                  style={{ marginRight: 10 }}
+
+              <View
+                style={[
+                  authStyles.inputWrapper,
+                  focusedField === "password" && authStyles.inputWrapperFocused,
+                ]}
+              >
+                <Ionicons
+                  name="lock-closed-outline"
+                  size={20}
+                  color={focusedField === "password" ? "#2563EB" : "#64748B"}
+                  style={authStyles.inputIcon}
                 />
+
                 <TextInput
                   style={authStyles.input}
-                  placeholder="Minimal 6 karakter"
+                  placeholder="Masukkan kata sandi"
                   placeholderTextColor="#94A3B8"
+                  secureTextEntry={!showPassword}
+                  autoCapitalize="none"
                   value={password}
                   onChangeText={setPassword}
-                  secureTextEntry={!showPassword}
-                  onFocus={() => setFocusedField('password')}
+                  onFocus={() => setFocusedField("password")}
                   onBlur={() => setFocusedField(null)}
                 />
-                <TouchableOpacity 
+
+                {/* Tombol Tampilkan Password */}
+                <TouchableOpacity
                   style={authStyles.eyeButton}
                   onPress={() => setShowPassword(!showPassword)}
                 >
-                  <Ionicons 
-                    name={showPassword ? 'eye-off' : 'eye'} 
-                    size={20} 
-                    color="#64748B" 
+                  <Ionicons
+                    name={showPassword ? "eye-off-outline" : "eye-outline"}
+                    size={20}
+                    color="#64748B"
                   />
                 </TouchableOpacity>
               </View>
             </View>
 
-            {/* Button */}
-            <TouchableOpacity 
-              style={authStyles.button} 
+            {/* Tombol Login */}
+            <TouchableOpacity
+              style={[
+                authStyles.primaryButton,
+                isLoading && authStyles.primaryButtonDisabled,
+              ]}
+              activeOpacity={0.85}
               onPress={handleLogin}
-              activeOpacity={0.8}
+              disabled={isLoading}
             >
-              <Ionicons name="log-in" size={20} color="#FFFFFF" />
-              <Text style={authStyles.buttonText}>Masuk</Text>
+              {isLoading ? (
+                <>
+                  <ActivityIndicator size="small" color="#FFFFFF" />
+                  <Text style={authStyles.primaryButtonText}>Memproses...</Text>
+                </>
+              ) : (
+                <>
+                  <Text style={authStyles.primaryButtonText}>
+                    Masuk Sekarang
+                  </Text>
+                  <Ionicons name="arrow-forward" size={18} color="#FFFFFF" />
+                </>
+              )}
             </TouchableOpacity>
-          </View>
 
-          {/* Divider */}
-          <View style={authStyles.dividerRow}>
-            <View style={authStyles.dividerLine} />
-            <Text style={authStyles.dividerText}>atau</Text>
-            <View style={authStyles.dividerLine} />
-          </View>
+            {/* Divider */}
+            <View style={authStyles.dividerRow}>
+              <View style={authStyles.dividerLine} />
 
-          {/* Footer */}
-          <View style={authStyles.footer}>
-            <Text style={authStyles.footerText}>Belum punya akun?</Text>
-            <TouchableOpacity onPress={() => router.push('/register' as any)}>
-              <Text style={authStyles.footerLink}>Daftar Sekarang</Text>
-            </TouchableOpacity>
+              <Text style={authStyles.dividerText}>atau</Text>
+
+              <View style={authStyles.dividerLine} />
+            </View>
+
+            {/* Link Register */}
+            <View style={authStyles.footerRow}>
+              <Text style={authStyles.footerText}>Belum punya akun?</Text>
+
+              <TouchableOpacity onPress={() => router.push("/register")}>
+                <Text style={authStyles.footerLink}>Daftar Sekarang</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

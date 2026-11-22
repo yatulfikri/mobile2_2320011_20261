@@ -1,81 +1,204 @@
-import { EdgeInsets } from 'react-native-safe-area-context';
-
-/**
- * Styles untuk Bottom Tab Navigator
- * 100% sesuai Modul Praktikum 10
- */
-
-// Tab Navigation Colors
+import { StyleSheet } from "react-native";
 export const tabNavColors = {
-  active: '#2563EB',
-  inactive: '#64748B',
-  headerBg: '#FFFFFF',
-  headerTint: '#0F172A',
-  surface: '#FFFFFF',
-  border: '#E2E8F0',
+  active: "#2563EB",
+  inactive: "#64748B",
+  headerBg: "#FFFFFF",
+  headerTint: "#0F172A",
+  surface: "#FFFFFF",
+  border: "#E2E8F0",
 };
-
-export const tabStyles = {
-  /**
-   * Tab Bar Style dengan Safe Area Insets
-   * Height: 62 + Math.max(insets.bottom, 8)
-   */
-  tabBarStyle: (insets: EdgeInsets) => ({
-    backgroundColor: tabNavColors.surface,
+export const tabStyles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: "#FFFFFF",
     borderTopWidth: 1,
-    borderTopColor: tabNavColors.border,
-    shadowColor: '#0F172A',
+    borderTopColor: "#E2E8F0",
+    shadowColor: "#0F172A",
     shadowOffset: { width: 0, height: -4 },
     shadowOpacity: 0.04,
     shadowRadius: 12,
     elevation: 8,
-    height: 62 + Math.max(insets.bottom, 8),
-    paddingBottom: Math.max(insets.bottom, 8),
-  }),
-
-  /**
-   * Tab Bar Item Style
-   */
-  tabBarItemStyle: {
-    paddingTop: 6,
-    alignItems: 'center' as const,
-    justifyContent: 'center' as const,
   },
-
-  /**
-   * Tab Bar Label Style
-   */
-  tabBarLabelStyle: {
+  tabBarItem: {
+    paddingTop: 6,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  tabBarLabel: {
     fontSize: 11,
-    fontWeight: '600' as '600',
+    fontWeight: "600",
     marginTop: 3,
   },
-
-  /**
-   * Icon Container untuk Tab
-   */
   iconContainer: {
     width: 28,
     height: 28,
-    alignItems: 'center' as const,
-    justifyContent: 'center' as const,
+    alignItems: "center",
+    justifyContent: "center",
   },
-
-  /**
-   * Header Style untuk Tab Screens
-   */
   headerStyle: {
-    backgroundColor: tabNavColors.headerBg,
+    backgroundColor: "#FFFFFF",
     borderBottomWidth: 1,
-    borderBottomColor: tabNavColors.border,
+    borderBottomColor: "#E2E8F0",
   },
-
-  /**
-   * Header Title Style
-   */
   headerTitleStyle: {
+    fontWeight: "700",
     fontSize: 17,
-    fontWeight: '700' as '700',
-    color: tabNavColors.headerTint,
+    color: "#0F172A",
   },
-};
+  screenContainer: {
+    flex: 1,
+    backgroundColor: "#F8FAFC",
+  },
+  scrollContent: {
+    padding: 20,
+    gap: 14,
+  },
+  card: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 18,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
+    shadowColor: "#0F172A",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 12,
+    elevation: 2,
+  },
+  cardHeaderRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  badgeBlue: {
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    backgroundColor: "#EFF6FF",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 999,
+  },
+  badgeBlueText: {
+    fontSize: 11.5,
+    fontWeight: "700",
+    color: "#2563EB",
+  },
+  badgeGreen: {
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    backgroundColor: "#ECFDF5",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 999,
+  },
+  badgeGreenText: {
+    fontSize: 11.5,
+    fontWeight: "700",
+    color: "#059669",
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "800",
+    color: "#0F172A",
+  },
+  sectionSubtitle: {
+    fontSize: 13,
+    color: "#64748B",
+    lineHeight: 19,
+    marginTop: 4,
+  },
+  listItemCard: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  listItemLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    flex: 1,
+  },
+  iconBox: {
+    width: 42,
+    height: 42,
+    borderRadius: 12,
+    backgroundColor: "#EFF6FF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  listItemTitle: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: "#0F172A",
+  },
+  listItemMeta: {
+    fontSize: 12,
+    color: "#64748B",
+    marginTop: 2,
+  },
+  listItemPrice: {
+    fontSize: 13.5,
+    fontWeight: "700",
+    color: "#2563EB",
+  },
+  statGrid: {
+    flexDirection: "row",
+    gap: 12,
+  },
+  statCard: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
+  },
+  statLabel: {
+    fontSize: 12,
+    color: "#64748B",
+    fontWeight: "600",
+  },
+  statValue: {
+    fontSize: 18,
+    fontWeight: "800",
+    color: "#0F172A",
+    marginTop: 6,
+  },
+  profileAvatar: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: "#EFF6FF",
+    borderWidth: 2,
+    borderColor: "#DBEAFE",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 12,
+  },
+  logoutButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    backgroundColor: "#FEF2F2",
+    borderWidth: 1,
+    borderColor: "#FECACA",
+    borderRadius: 14,
+    height: 50,
+    marginTop: 6,
+  },
+  logoutButtonText: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: "#DC2626",
+  },
+});
